@@ -9,7 +9,9 @@ class PaymentGatewayRegistry
      *
      * @var array
      */
-    protected $supportedGateways = [];
+    protected $supportedGateways = [
+        'SrPago',
+    ];
 
     /**
      * Registered payment gateways.
