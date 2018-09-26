@@ -2,12 +2,10 @@
 
 namespace Kinedu\PaymentGateways;
 
-use Exception;
-use SrPago\{
-    Customer as SrPagoCustomer,
-    CustomerCards as SrPagoCustomerCards,
-    Error\SrPagoError,
-    SrPago
+use SrPago\SrPago;
+use Kinedu\PaymentGateways\SrPago\{
+    Card as SrPagoCard,
+    Customer as SrPagoCustomer
 };
 
 class SrPagoPaymentGateway implements PaymentGateway
@@ -22,20 +20,23 @@ class SrPagoPaymentGateway implements PaymentGateway
     /**
      * Create a new customer.
      *
-     * @param  array  $data  The customer information to be stored.
-     * @return array
+     * @param  array  $params
+     * @return \Kinedu\PaymentGateways\SrPago\Collection
      */
-    public function createCustomer(array $data): array
+    public function getAllCustomers(array $params = [])
     {
-        try {
-            $newCustomer = (new SrPagoCustomer())->create($data);
-        } catch (SrPagoError $e) {
-            throw new Exception($e->getError()['message']);
-        }
+        return SrPagoCustomer::all($params);
+    }
 
-        return [
-            'id' => $newCustomer['id'],
-        ];
+    /**
+     * Create a new customer.
+     *
+     * @param  array  $data  The customer information to be stored.
+     * @return \Kinedu\PaymentGateways\SrPago\Customer
+     */
+    public function createCustomer(array $data)
+    {
+        return SrPagoCustomer::create($data);
     }
 
     /**
@@ -43,23 +44,11 @@ class SrPagoPaymentGateway implements PaymentGateway
      *
      * @param  string  $customerId
      * @param  string  $token
-     * @return array
+     * @return \Kinedu\PaymentGateways\SrPago\Card
      */
-    public function addCard(string $customerId, string $token): array
+    public function addCard(string $customerId, string $token)
     {
-        try {
-            $newCard = (new SrPagoCustomerCards())->add($customerId, $token);
-        } catch (SrPagoError $e) {
-            throw new Exception($e->getError()['message']);
-        }
-
-        return [
-            'token' => $newCard['token'],
-            'card_brand' => $newCard['type'],
-            'last_four' => substr($newCard['number'], -4),
-            'exp_month' => null,
-            'exp_year' => $newCard['expiration'],
-        ];
+        return SrPagoCard::create($customerId, $token);
     }
 
     /**

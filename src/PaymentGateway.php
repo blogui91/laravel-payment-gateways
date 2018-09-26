@@ -8,18 +8,18 @@ interface PaymentGateway
      * Create a new customer in the payment provider's API.
      *
      * @param  array  $data  The customer information to be stored.
-     * @return array
+     * @return mixed
      */
-    public function createCustomer(array $data): array;
+    public function createCustomer(array $data);
 
     /**
      * Add a new customer card.
      *
      * @param  string  $customerId
      * @param  string  $token
-     * @return array
+     * @return mixed
      */
-    public function addCard(string $customerId, string $token): array;
+    public function addCard(string $customerId, string $token);
 
     /**
      * Return the name of the current payment provider.
