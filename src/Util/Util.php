@@ -79,6 +79,7 @@ abstract class Util
 
             // business objects
             \Kinedu\PaymentGateways\SrPago\Card::OBJECT_NAME => 'Kinedu\\PaymentGateways\\SrPago\\Card',
+            \Kinedu\PaymentGateways\SrPago\Charge::OBJECT_NAME => 'Kinedu\\PaymentGateways\\SrPago\\Charge',
             \Kinedu\PaymentGateways\SrPago\Customer::OBJECT_NAME => 'Kinedu\\PaymentGateways\\SrPago\\Customer',
         ];
 

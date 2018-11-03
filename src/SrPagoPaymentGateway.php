@@ -3,8 +3,10 @@
 namespace Kinedu\PaymentGateways;
 
 use SrPago\SrPago;
+use InvalidArgumentException;
 use Kinedu\PaymentGateways\SrPago\{
     Card as SrPagoCard,
+    Charge as SrPagoCharge,
     Customer as SrPagoCustomer
 };
 
@@ -49,6 +51,40 @@ class SrPagoPaymentGateway implements PaymentGateway
     public function addCard(string $customerId, string $token)
     {
         return SrPagoCard::create($customerId, $token);
+    }
+
+    /**
+     * Return a listing of all cards belonging to the specified customer.
+     *
+     * @param  string  $customerId
+     * @return \Kinedu\PaymentGateways\SrPago\Collection
+     */
+    public function getAllCards(string $customerId)
+    {
+        return SrPagoCard::all($customerId);
+    }
+
+    /**
+     * Charge the customer the given amount.
+     *
+     * @param  array  $params
+     * @return \Kinedu\PaymentGateways\SrPago\Collection
+     */
+    public function getAllCharges(array $params = [])
+    {
+        return SrPagoCharge::all($params);
+    }
+
+    /**
+     * Charge the customer the given amount.
+     *
+     * @param  float  $amount
+     * @param  array  $options
+     * @return \Kinedu\PaymentGateways\SrPago\Charges
+     */
+    public function charge(float $amount, array $options = [])
+    {
+        return SrPagoCharge::create($amount, $options);
     }
 
     /**

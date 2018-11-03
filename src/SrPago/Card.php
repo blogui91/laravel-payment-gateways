@@ -33,11 +33,10 @@ class Card extends ApiResource
             throw $e;
         }
 
-        $response = array_merge($cards, [
+        $response = [
             'object' => 'list',
-            'data' => Util::formatData($cards['cards'], static::OBJECT_NAME),
-        ]);
-        unset($response['cards']);
+            'data' => Util::formatData($cards, static::OBJECT_NAME),
+        ];
 
         return static::convertToObject($response);
     }
@@ -63,23 +62,19 @@ class Card extends ApiResource
     }
 
     /**
-     * Retrieve the specified credit card belonging to the specified customer.
+     * Charge the card for the specified amount.
      *
-     * @param  string  $customerId
-     * @param  string  $cardToken
+     * @param  int  $amount
+     * @param  array  $options
      * @return \Kinedu\PaymentGateways\SrPago\Card
      */
-    public static function find(string $customerId, string $cardToken)
+    public function charge(int $amount, array $options = [])
     {
-        try {
-            $card = (new SrPagoCustomerCards())->find($customerId, $cardToken);
-        } catch (SrPagoError $e) {
-            throw new Exception($e->getError()['message']);
-        } catch (Exception $e) {
-            throw $e;
-        }
+        $options = array_merge($options, [
+            'card_token' => $this->token,
+        ]);
 
-        return static::convertToObject(static::formatCard($card));
+        return Charge::create($amount, $options);
     }
 
     /**
