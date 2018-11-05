@@ -7,7 +7,8 @@ use InvalidArgumentException;
 use Kinedu\PaymentGateways\SrPago\{
     Card as SrPagoCard,
     Charge as SrPagoCharge,
-    Customer as SrPagoCustomer
+    Customer as SrPagoCustomer,
+    Operation as SrPagoOperation
 };
 
 class SrPagoPaymentGateway implements PaymentGateway
@@ -85,6 +86,17 @@ class SrPagoPaymentGateway implements PaymentGateway
     public function charge(float $amount, array $options = [])
     {
         return SrPagoCharge::create($amount, $options);
+    }
+
+    /**
+     * Return the operation with the given transaction ID.
+     *
+     * @param  string  $transactionId
+     * @return \Kinedu\PaymentGateways\SrPago\Operation
+     */
+    public function getOperation(string $transactionId)
+    {
+        return SrPagoOperation::find($transactionId);
     }
 
     /**

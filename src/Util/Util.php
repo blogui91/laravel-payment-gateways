@@ -81,6 +81,7 @@ abstract class Util
             \Kinedu\PaymentGateways\SrPago\Card::OBJECT_NAME => 'Kinedu\\PaymentGateways\\SrPago\\Card',
             \Kinedu\PaymentGateways\SrPago\Charge::OBJECT_NAME => 'Kinedu\\PaymentGateways\\SrPago\\Charge',
             \Kinedu\PaymentGateways\SrPago\Customer::OBJECT_NAME => 'Kinedu\\PaymentGateways\\SrPago\\Customer',
+            \Kinedu\PaymentGateways\SrPago\Operation::OBJECT_NAME => 'Kinedu\\PaymentGateways\\SrPago\\Operation',
         ];
 
         if (self::isList($response)) {
