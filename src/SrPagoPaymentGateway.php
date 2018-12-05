@@ -21,7 +21,7 @@ class SrPagoPaymentGateway implements PaymentGateway
     }
 
     /**
-     * Create a new customer.
+     * Return a collection of customers from SrPago.
      *
      * @param  array  $params
      * @return \Kinedu\PaymentGateways\SrPago\Collection
@@ -66,7 +66,7 @@ class SrPagoPaymentGateway implements PaymentGateway
     }
 
     /**
-     * Charge the customer the given amount.
+     * Return a collection of all charges made to the customer.
      *
      * @param  array  $params
      * @return \Kinedu\PaymentGateways\SrPago\Collection
