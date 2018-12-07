@@ -82,6 +82,11 @@ abstract class Util
             \Kinedu\PaymentGateways\SrPago\Charge::OBJECT_NAME => 'Kinedu\\PaymentGateways\\SrPago\\Charge',
             \Kinedu\PaymentGateways\SrPago\Customer::OBJECT_NAME => 'Kinedu\\PaymentGateways\\SrPago\\Customer',
             \Kinedu\PaymentGateways\SrPago\Operation::OBJECT_NAME => 'Kinedu\\PaymentGateways\\SrPago\\Operation',
+
+            // PayU objects
+            \Kinedu\PaymentGateways\PayU\Card::OBJECT_NAME => 'Kinedu\\PaymentGateways\\PayU\\Card',
+            \Kinedu\PaymentGateways\PayU\Charge::OBJECT_NAME => 'Kinedu\\PaymentGateways\\PayU\\Charge',
+            \Kinedu\PaymentGateways\PayU\Customer::OBJECT_NAME => 'Kinedu\\PaymentGateways\\PayU\\Customer',
         ];
 
         if (self::isList($response)) {
