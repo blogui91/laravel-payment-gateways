@@ -10,7 +10,7 @@ use Kinedu\PaymentGateways\{
 };
 use PayU\{
     PayUCreditCards,
-    PayUParameters,
+    PayUParameters
 };
 
 class Card extends ApiResource
