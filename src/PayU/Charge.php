@@ -46,7 +46,7 @@ class Charge extends ApiResource
             PayUParameters::REFERENCE_CODE => $options['student_account_id'].'-'.date('Y/m/d H:i:s'),
             PayUParameters::DESCRIPTION => $options['student_account_id'],
 
-            PayUParameters::VALUE => $amount,
+            PayUParameters::VALUE => number_format($amount, 2, '.', ''),
             PayUParameters::TAX_VALUE => '0',
             PayUParameters::TAX_RETURN_BASE => '0',
             PayUParameters::CURRENCY => 'COP',

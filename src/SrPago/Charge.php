@@ -56,7 +56,7 @@ class Charge extends ApiResource
         }
 
         $data = array_merge([
-            'amount' => $amount,
+            'amount' => number_format($amount, 2, '.', ''),
             'source' => $options['card_token'],
         ], $options);
 
