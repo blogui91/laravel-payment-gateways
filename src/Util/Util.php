@@ -77,6 +77,12 @@ abstract class Util
             // data structures
             \Kinedu\PaymentGateways\SrPago\Collection::OBJECT_NAME => 'Kinedu\\PaymentGateways\\SrPago\\Collection',
 
+            // Conekta objects
+            \Kinedu\PaymentGateways\Conekta\Card::OBJECT_NAME => 'Kinedu\\PaymentGateways\\Conekta\\Card',
+            \Kinedu\PaymentGateways\Conekta\Charge::OBJECT_NAME => 'Kinedu\\PaymentGateways\\Conekta\\Charge',
+            \Kinedu\PaymentGateways\Conekta\Customer::OBJECT_NAME => 'Kinedu\\PaymentGateways\\Conekta\\Customer',
+            \Kinedu\PaymentGateways\Conekta\Operation::OBJECT_NAME => 'Kinedu\\PaymentGateways\\Conekta\\Operation',
+
             // business objects
             \Kinedu\PaymentGateways\SrPago\Card::OBJECT_NAME => 'Kinedu\\PaymentGateways\\SrPago\\Card',
             \Kinedu\PaymentGateways\SrPago\Charge::OBJECT_NAME => 'Kinedu\\PaymentGateways\\SrPago\\Charge',

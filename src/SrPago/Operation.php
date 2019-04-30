@@ -21,6 +21,8 @@ class Operation extends ApiResource
      *
      * @param  array  $parameters
      * @return \Kinedu\PaymentGateways\SrPago\Collection
+     *
+     * @throws \SrPago\Error\SrPagoError|\Exception
      */
     public static function all($parameters = [])
     {

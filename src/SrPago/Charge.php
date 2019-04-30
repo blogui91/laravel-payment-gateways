@@ -22,6 +22,8 @@ class Charge extends ApiResource
      *
      * @param  array  $parameters
      * @return \Kinedu\PaymentGateways\SrPago\Charge
+     *
+     * @throws \SrPago\Error\SrPagoError|\Exception
      */
     public static function all(array $parameters = [])
     {
@@ -48,6 +50,8 @@ class Charge extends ApiResource
      * @param  float  $amount
      * @param  array  $options
      * @return \Kinedu\PaymentGateways\SrPago\Charge
+     *
+     * @throws \InvalidArgumentException|\SrPago\Error\SrPagoError|\Exception
      */
     public static function create(float $amount, array $options = [])
     {
@@ -76,6 +80,8 @@ class Charge extends ApiResource
      *
      * @param  string  $transactionId
      * @return \Kinedu\PaymentGateways\SrPago\Charge
+     *
+     * @throws \SrPago\Error\SrPagoError|\Exception
      */
     public static function find(string $transactionId)
     {

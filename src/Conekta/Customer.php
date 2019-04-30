@@ -1,15 +1,15 @@
 <?php
 
-namespace Kinedu\PaymentGateways\SrPago;
+namespace Kinedu\PaymentGateways\Conekta;
 
 use Exception;
 use Kinedu\PaymentGateways\{
     ApiResource,
     Util\Util
 };
-use SrPago\{
-    Customer as SrPagoCustomer,
-    Error\SrPagoError
+use Conekta\{
+    Customer as ConektaCustomer,
+    Handler as ConektaError
 };
 
 class Customer extends ApiResource
@@ -17,19 +17,19 @@ class Customer extends ApiResource
     const OBJECT_NAME = 'customer';
 
     /**
-     * Retrieve a listing of all SrPago customers.
+     * Retrieve a listing of all Conekta customers.
      *
      * @param  array  $parameters
-     * @return \Kinedu\PaymentGateways\SrPago\Collection
+     * @return \Kinedu\PaymentGateways\Conekta\Collection
      *
-     * @throws \SrPago\Error\SrPagoError|Exception
+     * @throws \Conekta\Handler|\Exception
      */
     public static function all($parameters = [])
     {
         try {
-            $customers = (new SrPagoCustomer())->all($parameters);
-        } catch (SrPagoError $e) {
-            throw new Exception($e->getError()['message']);
+            $customers = ConektaCustomer::all($parameters);
+        } catch (ConektaError $e) {
+            throw new Exception($e->getMessage());
         } catch (Exception $e) {
             throw $e;
         }
@@ -40,41 +40,41 @@ class Customer extends ApiResource
         ]);
         unset($response['customers']);
 
-        return static::convertToObject($response);
+        return static::convertToObject((array) $response);
     }
 
     /**
      * Create a new customer.
      *
      * @param  array  $data  The customer information to be stored.
-     * @return \Kinedu\PaymentGateways\SrPago\Customer
+     * @return \Kinedu\PaymentGateways\Conekta\Customer
      *
-     * @throws \SrPago\Error\SrPagoError|Exception
+     * @throws \Conekta\Handler|\Exception
      */
     public static function create(array $data)
     {
         try {
-            $customer = (new SrPagoCustomer())->create($data);
-        } catch (SrPagoError $e) {
-            throw new Exception($e->getError()['message']);
+            $customer = ConektaCustomer::create($data);
+        } catch (ConektaError $e) {
+            throw new Exception($e->getMessage());
         } catch (Exception $e) {
             throw $e;
         }
 
-        return static::convertToObject($customer);
+        return static::convertToObject((array) $customer);
     }
 
     /**
      * Retrieve the customer with the matching customer token ID.
      *
      * @param  string  $id
-     * @return \Kinedu\PaymentGateways\SrPago\Customer
+     * @return \Kinedu\PaymentGateways\Conekta\Customer
      */
     public static function find(string $id)
     {
-        $customer = (new SrPagoCustomer())->find($id);
+        $customer = ConektaCustomer::find($id);
 
-        return static::convertToObject($customer);
+        return static::convertToObject((array) $customer);
     }
 
     /**

@@ -5,8 +5,9 @@
 Kinedu Payment Gateway provides an expressive, fluent interface to a number of different billing services.
 
 ### Currently Supported Services
+- [Conekta](https://conekta.com)
+- [PayU](https://www.payulatam.com)
 - [SrPago](https://senorpago.com)
 
 ### Pending Services Support
-- [Conekta](https://conekta.com)
-- [PayU](https://www.payulatam.com)
+- _TBD_

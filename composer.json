@@ -29,6 +29,7 @@
         "vlucas/phpdotenv": "~2.0"
     },
     "suggest": {
+        "conekta/conekta-php": "Required to pay using Conekta (4.0.4).",
         "kinedu/payu-php": "Required to pay using PayU (~1.0).",
         "kinedu/srpago-php": "Required to pay using SrPago (~1.3)."
     },

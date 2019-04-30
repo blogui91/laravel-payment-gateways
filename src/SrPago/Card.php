@@ -22,6 +22,8 @@ class Card extends ApiResource
      *
      * @param  string  $customerId
      * @return \Kinedu\PaymentGateways\SrPago\Card
+     *
+     * @throws \SrPago\Error\SrPagoError|\Exception
      */
     public static function all(string $customerId)
     {
@@ -47,6 +49,8 @@ class Card extends ApiResource
      * @param  string  $customerId
      * @param  string  $cardToken
      * @return \Kinedu\PaymentGateways\SrPago\Card
+     *
+     * @throws \SrPago\Error\SrPagoError|\Exception
      */
     public static function create(string $customerId, string $cardToken)
     {

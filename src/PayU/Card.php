@@ -22,6 +22,8 @@ class Card extends ApiResource
      *
      * @param  string  $token
      * @return \Kinedu\PaymentGateways\PayU\Card
+     *
+     * @throws \Exception
      */
     public static function find(string $token)
     {

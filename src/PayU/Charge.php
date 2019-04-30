@@ -26,6 +26,8 @@ class Charge extends ApiResource
      * @param  float  $amount
      * @param  array  $options
      * @return \Kinedu\PaymentGateways\PayU\Charge
+     *
+     * @throws \InvalidArgumentException|\Exception
      */
     public static function create(float $amount, array $options = [])
     {
