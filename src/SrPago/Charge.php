@@ -2,7 +2,6 @@
 
 namespace Kinedu\PaymentGateways\SrPago;
 
-use DateTime;
 use Exception;
 use Kinedu\PaymentGateways\{
     ApiResource,
@@ -45,7 +44,7 @@ class Charge extends ApiResource
     }
 
     /**
-     * Store a new credit card for the specified customer.
+     * Store a new charge for the specified customer.
      *
      * @param  float  $amount
      * @param  array  $options
@@ -76,7 +75,7 @@ class Charge extends ApiResource
     }
 
     /**
-     * Retrieve the specified credit card belonging to the specified customer.
+     * Retrieve the specified charge.
      *
      * @param  string  $transactionId
      * @return \Kinedu\PaymentGateways\SrPago\Charge
@@ -104,6 +103,6 @@ class Charge extends ApiResource
      */
     private static function convertToObject(array $charge)
     {
-        return Util::convertToSrPagoObject($charge);
+        return Util::convertToObject($charge);
     }
 }

@@ -2,6 +2,12 @@
 
 namespace Kinedu\PaymentGateways;
 
+use InvalidArgumentException;
+use Illuminate\Support\{
+    Arr,
+    Str
+};
+
 class PaymentGatewayRegistry
 {
     /**
@@ -11,6 +17,7 @@ class PaymentGatewayRegistry
      */
     protected $supportedGateways = [
         'SrPago',
+        'Stripe',
     ];
 
     /**
@@ -18,17 +25,35 @@ class PaymentGatewayRegistry
      *
      * @var array
      */
-    protected $registeredGateways = [];
+    protected $registeredGateways = [
+        //
+    ];
 
     /**
      * Add a payment gateway provider to the listed registry.
      *
      * @param  string  $name
      * @param  \Kinedu\PaymentGateways\PaymentGateway  $instance
+     *
+     * @throws \InvalidArgumentException
+     *
      * @return \Kinedu\PaymentGateways\PaymentGatewayRegistry
      */
     public function register(string $name, PaymentGateway $instance)
     {
+        $supportedGateways = $this->supportedGateways;
+
+        $gateway = Arr::first($supportedGateways, function ($value) use ($name) {
+            $name = explode(" ", $name);
+            $name = reset($name);
+
+            return Str::startsWith($value, $name);
+        });
+
+        if (! $gateway) {
+            throw new InvalidArgumentException('The given gateway is not currently supported.');
+        }
+
         $this->registeredGateways[$name] = $instance;
 
         return $this;

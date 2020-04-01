@@ -2,43 +2,43 @@
 
 namespace Kinedu\PaymentGateways;
 
-use SrPago\SrPago;
-use Kinedu\PaymentGateways\SrPago\{
-    Card as SrPagoCard,
-    Charge as SrPagoCharge,
-    Customer as SrPagoCustomer,
-    Operation as SrPagoOperation
+use Exception;
+use Stripe\Stripe;
+use Kinedu\PaymentGateways\Stripe\{
+    Card as StripeCard,
+    Charge as StripeCharge,
+    Customer as StripeCustomer
 };
 
-class SrPagoPaymentGateway implements PaymentGateway
+class StripePaymentGateway implements PaymentGateway
 {
-    public function __construct(string $apiKey, string $apiSecret, bool $livemode = false)
+    public function __construct(string $apiKey)
     {
-        SrPago::setLiveMode($livemode);
-        SrPago::setApiKey($apiKey);
-        SrPago::setApiSecret($apiSecret);
+        Stripe::setApiKey($apiKey);
     }
 
     /**
-     * Return a collection of customers from SrPago.
+     * Return a collection of customers from Stripe.
      *
      * @param  array  $params
-     * @return \Kinedu\PaymentGateways\SrPago\Collection
+     *
+     * @throws \Exception
      */
     public function getAllCustomers(array $params = [])
     {
-        return SrPagoCustomer::all($params);
+        throw new Exception('This feature is not currently supported.');
     }
 
     /**
      * Create a new customer.
      *
      * @param  array  $data  The customer information to be stored.
-     * @return \Kinedu\PaymentGateways\SrPago\Customer
+     *
+     * @return \Kinedu\PaymentGateways\Stripe\Customer
      */
     public function createCustomer(array $data)
     {
-        return SrPagoCustomer::create($data);
+        return StripeCustomer::create($data);
     }
 
     /**
@@ -46,33 +46,36 @@ class SrPagoPaymentGateway implements PaymentGateway
      *
      * @param  string  $customerId
      * @param  string  $token
-     * @return \Kinedu\PaymentGateways\SrPago\Card
+     *
+     * @return \Kinedu\PaymentGateways\Stripe\Card
      */
     public function addCard(string $customerId, string $token)
     {
-        return SrPagoCard::create($customerId, $token);
+        return StripeCard::create($customerId, $token);
     }
 
     /**
      * Return a listing of all cards belonging to the specified customer.
      *
      * @param  string  $customerId
-     * @return \Kinedu\PaymentGateways\SrPago\Collection
+     *
+     * @throws \Exception
      */
     public function getAllCards(string $customerId)
     {
-        return SrPagoCard::all($customerId);
+        throw new Exception('This feature is not currently supported.');
     }
 
     /**
      * Return a collection of all charges made to the customer.
      *
      * @param  array  $params
-     * @return \Kinedu\PaymentGateways\SrPago\Collection
+     *
+     * @throws \Exception
      */
     public function getAllCharges(array $params = [])
     {
-        return SrPagoCharge::all($params);
+        throw new Exception('This feature is not currently supported.');
     }
 
     /**
@@ -80,22 +83,24 @@ class SrPagoPaymentGateway implements PaymentGateway
      *
      * @param  float  $amount
      * @param  array  $options
-     * @return \Kinedu\PaymentGateways\SrPago\Charges
+     *
+     * @return mixed
      */
     public function charge(float $amount, array $options = [])
     {
-        return SrPagoCharge::create($amount, $options);
+        return StripeCharge::create($amount,  $options);
     }
 
     /**
      * Return the operation with the given transaction ID.
      *
      * @param  string  $transactionId
-     * @return \Kinedu\PaymentGateways\SrPago\Operation
+     *
+     * @return \Kinedu\PaymentGateways\Stripe\Charge
      */
     public function getOperation(string $transactionId)
     {
-        return SrPagoOperation::find($transactionId);
+        return StripeCharge::find($transactionId);
     }
 
     /**
@@ -105,6 +110,6 @@ class SrPagoPaymentGateway implements PaymentGateway
      */
     public function getProviderName(): string
     {
-        return 'SrPago';
+        return 'Stripe';
     }
 }

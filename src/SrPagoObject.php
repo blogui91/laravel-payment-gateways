@@ -18,7 +18,7 @@ class SrPagoObject implements \ArrayAccess, \Countable, \JsonSerializable
 
     public function __set($key, $value)
     {
-        $this->values[$key] = Util\Util::convertToSrPagoObject($value);
+        $this->values[$key] = Util\Util::convertToObject($value);
     }
 
     public function __get($property)
@@ -77,7 +77,7 @@ class SrPagoObject implements \ArrayAccess, \Countable, \JsonSerializable
             if ($key === 'metadata') {
                 $this->values[$key] = self::constructFrom($value);
             } else {
-                $this->values[$key] = Util\Util::convertToSrPagoObject($value);
+                $this->values[$key] = Util\Util::convertToObject($value);
             }
         }
     }

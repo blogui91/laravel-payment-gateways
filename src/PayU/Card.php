@@ -2,7 +2,6 @@
 
 namespace Kinedu\PaymentGateways\PayU;
 
-use DateTime;
 use Exception;
 use Kinedu\PaymentGateways\{
     ApiResource,
@@ -47,7 +46,7 @@ class Card extends ApiResource
      */
     private static function convertToObject($card)
     {
-        return Util::convertToSrPagoObject(static::normalizeCard($card));
+        return Util::convertToObject(static::normalizeCard($card));
     }
 
     /**

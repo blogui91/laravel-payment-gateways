@@ -59,7 +59,7 @@ class Customer extends ApiResource
      */
     private static function convertToObject($customer)
     {
-        return Util::convertToSrPagoObject(
+        return Util::convertToObject(
             Util::formatData((array) $customer, static::OBJECT_NAME)
         );
     }

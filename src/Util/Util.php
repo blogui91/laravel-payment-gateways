@@ -71,7 +71,7 @@ abstract class Util
      *
      * @return SrPagoObject|array
      */
-    public static function convertToSrPagoObject($response)
+    public static function convertToObject($response)
     {
         $types = [
             // data structures
@@ -93,13 +93,18 @@ abstract class Util
             \Kinedu\PaymentGateways\PayU\Card::OBJECT_NAME => 'Kinedu\\PaymentGateways\\PayU\\Card',
             \Kinedu\PaymentGateways\PayU\Charge::OBJECT_NAME => 'Kinedu\\PaymentGateways\\PayU\\Charge',
             \Kinedu\PaymentGateways\PayU\Customer::OBJECT_NAME => 'Kinedu\\PaymentGateways\\PayU\\Customer',
+
+            // Stripe objects
+            \Kinedu\PaymentGateways\Stripe\Card::OBJECT_NAME => 'Kinedu\\PaymentGateways\\Stripe\\Card',
+            \Kinedu\PaymentGateways\Stripe\Charge::OBJECT_NAME => 'Kinedu\\PaymentGateways\\Stripe\\Charge',
+            \Kinedu\PaymentGateways\Stripe\Customer::OBJECT_NAME => 'Kinedu\\PaymentGateways\\Stripe\\Customer',
         ];
 
         if (self::isList($response)) {
             $mapped = [];
 
             foreach ($response as $i) {
-                array_push($mapped, self::convertToSrPagoObject($i));
+                array_push($mapped, self::convertToObject($i));
             }
 
             return $mapped;

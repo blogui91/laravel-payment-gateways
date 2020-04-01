@@ -123,7 +123,7 @@ class Charge extends ApiResource
      */
     private static function convertToObject($charge)
     {
-        return Util::convertToSrPagoObject(static::normalizeCharge($charge));
+        return Util::convertToObject(static::normalizeCharge($charge));
     }
 
     /**

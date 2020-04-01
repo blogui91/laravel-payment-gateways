@@ -2,7 +2,6 @@
 
 namespace Kinedu\PaymentGateways\PayU;
 
-use DateTime;
 use Exception;
 use InvalidArgumentException;
 use Kinedu\PaymentGateways\{
@@ -111,7 +110,7 @@ class Charge extends ApiResource
      */
     private static function convertToObject($charge)
     {
-        return Util::convertToSrPagoObject(static::normalizeCharge($charge));
+        return Util::convertToObject(static::normalizeCharge($charge));
     }
 
     /**

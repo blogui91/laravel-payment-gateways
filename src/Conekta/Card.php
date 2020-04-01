@@ -142,7 +142,7 @@ class Card extends ApiResource
      */
     private static function convertToObject(array $customer)
     {
-        return Util::convertToSrPagoObject($customer);
+        return Util::convertToObject($customer);
     }
 
     /**

@@ -66,6 +66,6 @@ class Operation extends ApiResource
      */
     private static function convertToObject(array $operation)
     {
-        return Util::convertToSrPagoObject($operation);
+        return Util::convertToObject($operation);
     }
 }
