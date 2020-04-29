@@ -2,6 +2,7 @@
 
 namespace Kinedu\PaymentGateways;
 
+use Exception;
 use InvalidArgumentException;
 use Illuminate\Support\{
     Arr,
@@ -30,17 +31,32 @@ class PaymentGatewayRegistry
     ];
 
     /**
+     * Registered payment gateways services.
+     *
+     * @var array
+     */
+    protected $registeredServices = [
+        //
+    ];
+
+    /**
      * Add a payment gateway provider to the listed registry.
      *
      * @param  string  $name
-     * @param  \Kinedu\PaymentGateways\PaymentGateway  $instance
+     * @param  \Kinedu\PaymentGateways\PaymentGateway|\Kinedu\PaymentGateways\PaymentGatewayService  $instance
+     * @param  string  $serviceName
      *
      * @throws \InvalidArgumentException
      *
      * @return \Kinedu\PaymentGateways\PaymentGatewayRegistry
      */
-    public function register(string $name, PaymentGateway $instance)
+    public function register(string $name, $instance, string $serviceName = null)
     {
+        if (! $instance instanceof PaymentGateway &&
+            ! $instance instanceof PaymentGatewayService) {
+            throw new InvalidArgumentException("The instance needs to be PaymentGateway or PaymentGatewayService.");
+        }
+
         $supportedGateways = $this->supportedGateways;
 
         $gateway = Arr::first($supportedGateways, function ($value) use ($name) {
@@ -54,9 +70,35 @@ class PaymentGatewayRegistry
             throw new InvalidArgumentException('The given gateway is not currently supported.');
         }
 
-        $this->registeredGateways[$name] = $instance;
+        $isService = $serviceName;
+
+        if (! $isService) {
+            $this->registeredGateways[$name] = $instance;
+
+            return $this;
+        }
+
+        if (! $services = Arr::get($this->registeredServices, $name)) {
+            $this->registeredServices[$name] = [];
+        }
+
+        $this->registeredServices[$name][$serviceName] = $instance;
 
         return $this;
+    }
+
+    /**
+     * Add a payment gateway provider service to the listed registry.
+     *
+     * @param  string  $name
+     * @param  \Kinedu\PaymentGateways\PaymentGateway|\Kinedu\PaymentGateways\PaymentGatewayService  $instance
+     * @param  string  $serviceName
+     *
+     * @return \Kinedu\PaymentGateways\PaymentGatewayRegistry
+     */
+    public function registerService(string $name, $instance, string $serviceName)
+    {
+        return $this->register($name, $instance, $serviceName);
     }
 
     /**
@@ -68,10 +110,18 @@ class PaymentGatewayRegistry
      */
     public function get(string $name)
     {
-        if (array_key_exists($name, $this->registeredGateways)) {
-            return $this->registeredGateways[$name];
-        } else {
-            throw new \Exception('Invalid gateway');
+        $registeredGateways = $this->registeredGateways;
+
+        if (! $gateway = Arr::get($registeredGateways, $name)) {
+            throw new Exception('Invalid gateway');
         }
+
+        $registeredServices = $this->registeredServices;
+
+        if (($services = Arr::get($registeredServices, $name)) && $gateway->supportServices) {
+            $gateway->attachServices($services);
+        }
+
+        return $gateway;
     }
 }

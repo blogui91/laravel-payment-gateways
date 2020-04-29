@@ -4,14 +4,19 @@ namespace Kinedu\PaymentGateways;
 
 use Exception;
 use Stripe\Stripe;
+use Kinedu\PaymentGateways\Traits\HasServices;
 use Kinedu\PaymentGateways\Stripe\{
     Card as StripeCard,
     Charge as StripeCharge,
-    Customer as StripeCustomer
+    Customer as StripeCustomer,
+    PaymentIntent as StripePaymentIntent,
+    Token as StripeToken
 };
 
 class StripePaymentGateway implements PaymentGateway
 {
+    use HasServices;
+
     public function __construct(string $apiKey)
     {
         Stripe::setApiKey($apiKey);
@@ -39,6 +44,18 @@ class StripePaymentGateway implements PaymentGateway
     public function createCustomer(array $data)
     {
         return StripeCustomer::create($data);
+    }
+
+    /**
+     * Get the given token.
+     *
+     * @param  string  $token
+     *
+     * @return \Kinedu\PaymentGateways\Stripe\Token
+     */
+    public function getToken(string $token)
+    {
+        return StripeToken::get($token);
     }
 
     /**
@@ -101,6 +118,31 @@ class StripePaymentGateway implements PaymentGateway
     public function getOperation(string $transactionId)
     {
         return StripeCharge::find($transactionId);
+    }
+
+    /**
+     * Create a new payment intent.
+     *
+     * @param  array  $data
+     *
+     * @return \Kinedu\PaymentGateways\Stripe\PaymentIntent
+     */
+    public function createPaymentIntent(array $data)
+    {
+        return StripePaymentIntent::create($data);
+    }
+
+    /**
+     * Confirm a payment intent.
+     *
+     * @param  string  $paymentIntentId
+     * @param  array  $data
+     *
+     * @return \Kinedu\PaymentGateways\Stripe\PaymentIntent
+     */
+    public function confirmPaymentIntent(string $paymentIntentId, array $data)
+    {
+        return StripePaymentIntent::confirm($paymentIntentId, $data);
     }
 
     /**

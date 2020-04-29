@@ -98,6 +98,13 @@ abstract class Util
             \Kinedu\PaymentGateways\Stripe\Card::OBJECT_NAME => 'Kinedu\\PaymentGateways\\Stripe\\Card',
             \Kinedu\PaymentGateways\Stripe\Charge::OBJECT_NAME => 'Kinedu\\PaymentGateways\\Stripe\\Charge',
             \Kinedu\PaymentGateways\Stripe\Customer::OBJECT_NAME => 'Kinedu\\PaymentGateways\\Stripe\\Customer',
+            \Kinedu\PaymentGateways\Stripe\PaymentIntent::OBJECT_NAME => 'Kinedu\\PaymentGateways\\Stripe\\PaymentIntent',
+            \Kinedu\PaymentGateways\Stripe\Token::OBJECT_NAME => 'Kinedu\\PaymentGateways\\Stripe\\Token',
+
+            // Stripe Connect objects
+            \Kinedu\PaymentGateways\Stripe\Connect\Account::OBJECT_NAME => 'Kinedu\\PaymentGateways\\Stripe\\Connect\\Account',
+            \Kinedu\PaymentGateways\Stripe\Connect\Person::OBJECT_NAME => 'Kinedu\\PaymentGateways\\Stripe\\Connect\\Person',
+            \Kinedu\PaymentGateways\Stripe\Connect\Transfer::OBJECT_NAME => 'Kinedu\\PaymentGateways\\Stripe\\Connect\\Transfer',
         ];
 
         if (self::isList($response)) {
