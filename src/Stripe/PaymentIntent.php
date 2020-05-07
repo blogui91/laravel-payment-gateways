@@ -25,11 +25,11 @@ class PaymentIntent extends ApiResource
      */
     public static function create(array $data)
     {
-        if (Arr::get($data, 'amount')) {
+        if (! Arr::get($data, 'amount')) {
             throw new InvalidArgumentException('Amount is required.');
         }
 
-        if (Arr::get($data, 'currency')) {
+        if (! Arr::get($data, 'currency')) {
             throw new InvalidArgumentException('Currency is required.');
         }
 
