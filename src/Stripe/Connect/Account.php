@@ -80,4 +80,36 @@ class Account extends ApiResource
 
         return Util::convertToObject($account);
     }
+
+    /**
+     * Create an external account for the given account ID.
+     *
+     * @param  string  $accountId
+     * @param  array  $account
+     *
+     * @throws \Exception
+     *
+     * @return \Kinedu\PaymentGateways\Stripe\Connect\Account
+     */
+    public static function createExternalAccount(string $accountId, array $data)
+    {
+        if (! $externalAccount = Arr::get($data, 'external_account')) {
+            throw new InvalidArgumentException('External account is required.');
+        }
+
+        if (! Arr::get($externalAccount, 'object') ||
+            ! Arr::get($externalAccount, 'country') ||
+            ! Arr::get($externalAccount, 'currency') ||
+            ! Arr::get($externalAccount, 'account_number')) {
+            throw new InvalidArgumentException('object, country, currency and account_number are required in external_account.');
+        }
+
+        try {
+            $account = StripeAccount::createExternalAccount($accountId, $data);
+        } catch (Exception $e) {
+            throw $e;
+        }
+
+        return Util::convertToObject($account);
+    }
 }

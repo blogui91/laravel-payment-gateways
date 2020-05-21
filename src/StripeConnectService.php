@@ -48,6 +48,19 @@ class StripeConnectService implements PaymentGatewayService
     }
 
     /**
+     * Create an external account for the given account ID.
+     *
+     * @param  string  $accountId
+     * @param  array  $data
+     *
+     * @return \Kinedu\PaymentGateways\Stripe\Connect\Account
+     */
+    public function createExternalAccount(string $accountId, array $data)
+    {
+        return Account::createExternalAccount($accountId, $data);
+    }
+
+    /**
      * Create a new person for the given account.
      *
      * @param  string  $accountId
