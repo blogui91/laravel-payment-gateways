@@ -44,7 +44,7 @@ class StripeConnectService implements PaymentGatewayService
      */
     public function updateAccount(string $accountId, array $data)
     {
-        return Account::find($accountId, $data);
+        return Account::update($accountId, $data);
     }
 
     /**
