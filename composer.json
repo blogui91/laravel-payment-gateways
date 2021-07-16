@@ -1,5 +1,5 @@
 {
-    "name": "blogui91/payment-gateways",
+    "name": "blogui91/laravel-payment-gateways",
     "description": "Payment gateways for use in Kinedu projects.",
     "keywords": ["laravel", "kinedu", "billing"],
     "license": "MIT",
